@@ -8,11 +8,11 @@ document.addEventListener("DOMContentLoaded", function(e)
 
         darkModeToggle.addEventListener('click', toggleDarkMode);
         
-        const lightMode = localStorage.getItem("lightMode");
-        if (lightMode == "true") {
-            setToLightMode();
-        } else {
+        const darkMode = localStorage.getItem("darkMode");
+        if (darkMode == "true") {
             setToDarkMode();
+        } else {
+            setToLightMode();
         }
 
     }
@@ -26,11 +26,11 @@ const toggleDarkMode = () => {
 const setToLightMode = () => {
     html.classList.remove('dark-mode');
     darkModeToggle.classList = 'fa fa-toggle-off';
-    localStorage.setItem("lightMode", "true");
+    localStorage.setItem("darkMode", "false");
 }
 
 const setToDarkMode = () => {
     html.classList.add('dark-mode');
     darkModeToggle.classList = 'fa fa-toggle-on';
-    localStorage.setItem("lightMode", "false");
+    localStorage.setItem("darkMode", "true");
 }
