@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Axel Sevenet</title>
+        <link rel="icon" href="assets/images/favicon.ico" />
+        
+        <link href="css/style.min.css" rel="stylesheet">
+        <link href="assets/fontawesome/css/all.css" rel="stylesheet">
+        <script src="script.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="header-content">
+                <a id="header-content-logo" href="index.html">
+                    <img id="header-logo" src="assets/images/logo-white.png" alt="logo">
+        
+                    <div id="header-content-title">
+                        <p>Axel Sevenet</p>
+                        <p>Web Developer</p>
+                    </div>
+                </a>
+        
+                <div id="header-content-dropdown">
+                    <p id="header-content-dropdown-button">
+                        <i class="fa-solid fa-bars"></i>
+                    </p>
+                    <div id="header-content-pages">
+                        <a class="inverse-hoverable" href="index.html">À propos de moi</a>
+                        <a class="inverse-hoverable" href="skills.html">Mon Expertise</a>
+                        <a class="inverse-hoverable" href="portfolio.html">Mes Projets</a>
+                        <a class="inverse-hoverable" href="blogs.html">Mes Blogs</a>
+                        <a class="inverse-hoverable" href="contact.html">Info Contact</a>
+                        <i id="dark-mode-toggle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="background-trail-container">
+            <img class="background-trail background-trail-1" src="assets/images/trail-1.png" alt="">
+            <img class="background-trail background-trail-2" src="assets/images/trail-2.png" alt="">
+            <img class="background-trail background-trail-3" src="assets/images/trail-3.png" alt="">
+        </div>
+        
+        <div id="main">
+            <div class="content">
+                
+                <h1>Démarrer un Projet sur Unity</h1>
+                <br>
+                <br>
+
+                <span>Développer un jeu vidéo peut paraître comme une tâche très ardue. Mais à toute grande tâche, il y a une première étape.</span>
+                <span>Très souvent, c'est de passer cette première étape qui libère l'Esprit et permet de commencer sérieusement le Projet.</span>
+                <br>
+                <span>Unity est un très bon logiciel de Développement de Jeux-Vidéos, avec beaucoup de libertés et de modularité;</span>
+                <span>cependant, avec toutes les différentes versions disponibles de Unity, il est facile de se perdre dans le choix.</span>
+                <br>
+                <span>Ce blog va expliquer les premières étapes de la mise en place d'un Projet Unity, ainsi que les différents à prendre en compte.</span>
+                <br>
+                <br>
+                <br>
+                <br>
+                <span>Première il faut télécharger Unity (Évidemment); Cette partie est plutôt simple: il suffit de se rendre sur </span>
+                <br>
+                <a href="https://unity.com/fr/download">https://unity.com/fr/download</a>
+                <br>
+                <span>Là vous y rencontrerez le bouton de téléchargement, je pense que je peux vous laisser deviner quoi faire.</span>
+                <img class="blog-image" src="/assets/images/blog/unity/download-hub.png" alt="">
+                <br>
+                <br>
+                <span>Après avoir installé "Unity Hub",</span>
+                <span>le processus va devenir un chouïa plus compliqué.</span>
+                <img class="blog-image" src="assets/images/blog/unity/hub1.png" alt="">
+                <br>
+                <span>Premièrement, il faut installer une version de l'Éditeur Unity, parce que Hub ne sert que de distributeur des différentes versions.</span>
+                <span>Allez dans l'onglet "Installs" pour ajouter une Version de l'Éditeur Unity sur votre Machine.</span>
+                <span>Il faut ensuite choisir la version de Unity que l'on souhaite utiliser. Généralement il faut mieux choisir la dernière version "LTS".</span>
+                <br>
+                <br>
+                <span>Les versions LTS (Long Term Support) sont plus stables car l'équipe de Développement Unity continue de travailler dessus.</span>
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity/hub-install-editor.png" alt="">
+                <br>
+                <span>Ensuite, il faut choisir les différents modules à Installer. Généralement on se limite aux modules de Builds sur différentes Plateformes.</span>
+                <span>(Windows, Linux, Mac, WebGL)</span>
+                <span>L'installation prend pas mal de temps, étant donné les tailles de fichiers à télécharger.</span>
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity/hub-install-modules.png" alt="">
+                <br>
+                <br>
+                <span><strong>Enfin</strong> on peut démarrer un Projet, pour ça, revenez dans l'onglet "Projects" et cliquez sur "New Project".</span>
+                <span>Il y a différentes templates, vous pouvez choisir de créer un jeu en 2D ou en 3D.</span>
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity/new-project-templates.png" alt="">
+                <span>Là ce trouve un autre point de Confusion, les Render Pipelines.</span>
+                <span>Il y a deux Render Pipelines : URP (Universal Render Pipeline) et HDRP (High Definition Render Pipeline)</span>
+                <span>Dépendamment du style graphique que vous voulez adopter pour votre jeu, vous devrez choisir entre les deux.</span>
+                <br>
+                <span>URP offre une très grande ouverture et permet de coder vos propres shaders; cette Render Pipeline est aussi très performante.</span>
+                <span>URP est plus adapté au jeux stylisés ou semi-réalistes.</span>
+                <br>
+                <span>HDRP est très facile d'utilisation et permet d'atteindre une très haute fidélité graphique; cependant si vous souhaitez coder vos propres shaders, je ne la recommande pas du tout.</span>
+                <span>HDRP est plus adapté au jeux Réalistes.</span>
+                <br>
+                <br>
+                <span>Après avoir choisit votre Rendre Pipeline, vous pouvez enfin commencer à créer votre Jeu!</span>
+                <br>
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity/new-project.png" alt="">
+
+            </div>
+        </div>
+    </body>
+</html>
