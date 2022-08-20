@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="dark-mode">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Axel Sevenet</title>
+        <link rel="icon" href="assets/images/favicon.ico" />
+        
+        <link href="css/style.min.css" rel="stylesheet">
+        <link href="assets/fontawesome/css/all.css" rel="stylesheet">
+        <script src="scripts/script.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div id="header">
+            <div id="header-content">
+                <a id="header-content-logo" href="index.html">
+                    <img id="header-logo" src="assets/images/logo-white.png" alt="logo">
+        
+                    <div id="header-content-title">
+                        <p>Axel Sevenet</p>
+                        <p>Web Developer</p>
+                    </div>
+                </a>
+        
+                <div id="header-content-dropdown">
+                    <p id="header-content-dropdown-button">
+                        <i class="fa-solid fa-bars"></i>
+                    </p>
+                    <div id="header-content-pages">
+                        <a class="inverse-hoverable" href="index.html">À propos de moi</a>
+                        <a class="inverse-hoverable" href="skills.html">Mon Expertise</a>
+                        <a class="inverse-hoverable" href="portfolio.html">Mes Projets</a>
+                        <a class="inverse-hoverable" href="blogs.html">Mes Blogs</a>
+                        <a class="inverse-hoverable" href="contact.html">Contact</a>
+                        <i id="dark-mode-toggle"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="background-trail-container">
+            <img class="background-trail background-trail-1" src="assets/images/trail-1.png" alt="">
+            <img class="background-trail background-trail-2" src="assets/images/trail-2.png" alt="">
+            <img class="background-trail background-trail-3" src="assets/images/trail-3.png" alt="">
+        </div>
+        
+        <div id="main">
+            <div class="content">
+                
+                <h1>La Création d'outils de Dev dans Unity</h1>
+                <br>
+                <br>
+
+                <span>Développer un jeu vidéo implique très souvent de répéter des tâches multiples fois.</span>
+                <span>Il arrive aussi que l'Éditeur d'une classe soit très moche ou encombré.</span>
+                <br>
+                <span>Et bien le Tool-Deving peut résoudre tous ces problèmes!</span>
+                <br>
+                <br>
+                <span>Ce domaine est un relativement, donc si vous ne faites que commencer à apprendre Unity, je vous invite à attendre un peu avant de vous pencher là-dessus.</span>
+                <br>
+                <br>
+                <span>Bien, avant de commencer, nous allons devoir choisir une classe sur laquelle nous allons appliquer notre Éditeur customisé.</span>
+                <pre>
+                    <code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TutorialClass : MonoBehaviour {
+    
+    public int a = 0;
+    public Vector3 b = Vector3.right;
+    public float c = 0.145f;
+
+
+    public void DoSomeStuff() {
+        Debug.Log("Doing some stuff");
+    }
+}
+                    </code>
+                </pre>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/tutorial-class-base-editor.png" alt="">
+                <br>
+                <br>
+                <span>Bien! Voici notre classe ainsi que l'Éditeur par défaut, généré automatiquement par Unity.</span>
+                <span>Il n'y a rien de vraiment compliqué pour l'instant, mais sur une classe plus fournie, l'Éditeur peut vite devenir illisible.</span>
+                <br>
+                <span>Nous allons donc créer un Script dans le dossier "Editor" de notre projet. Généralement, on nomme les scripts Éditeur de la façon suivante:</span>
+                <span>"[Nom-Du-Script]Editor"</span>
+                <span>Pour la forme, nous allons donc appeler notre script "TutorialClassEditor".</span>
+
+                <pre>
+                    <code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+[CanEditMultipleObjects]
+[CustomEditor(typeof(TutorialClass))]
+public class TutorialClassEditor : UnityEditor.Editor {
+    
+    private void OnEnable(){
+
+    }
+
+    private void OnDisable(){
+
+    }
+    
+    public override void OnInspectorGUI(){
+
+    }
+
+    public void OnSceneGUI(){
+        
+    }
+}
+                    </code>
+                </pre>
+                <span>Voici donc notre classe Éditeur vide.</span>
+                <span>Vous remarquerez peut-être que maintenant, l'inspecteur est vide. C'est normal, on a remplacé l'inspecteur de base par un inspecteur vide.</span>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/tutorial-class-empty-editor.png" alt="">
+                <br>
+                <span>Pour pouvoir inspecter notre TutorialClass, il faut aller chercher toutes les données que nous voulons.</span>
+                <span>Pour cela, ajouter une unique propriété de type "SerializedObject" ainsi qu'une propriété de type "SerializedProperty" pour chaque valeur que l'on veut dans l'inspecteur.</span>
+
+                <pre>
+                    <code>
+private SerializedObject so;
+private SerializedProperty propA;
+private SerializedProperty propB;
+private SerializedProperty propC;
+                    </code>
+                </pre>
+
+                <span>Ensuite, il faut récupérer ces propriétés dans l'objet à inspecter;</span>
+                <span>par conséquent, dans la méthode "OnEnable", on va récupérer les propriétés:</span>
+
+                <pre>
+                    <code>
+                        
+private void OnEnable(){
+
+    so = serializedObject;
+    propA = so.FindProperty( "a" );
+    propB = so.FindProperty( "b" );
+    propC = so.FindProperty( "c" );
+    
+}
+                    </code>
+                </pre>
+                
+                <br>
+                <span>Bien! on peut maintenant afficher nos propriétés.</span>
+                <span>Pour faire ceci, il suffit d'ajouter un appel de Méthode "EditorGUILayout.PropertyField" pour chaque propriété, dans OnInspectorGUI:</span>
+
+                <pre>
+                    <code>
+public override void OnInspectorGUI(){
+
+    EditorGUILayout.PropertyField( propA, new GUIContent("Propriété A") );
+    EditorGUILayout.PropertyField( propB, new GUIContent("Propriété B") );
+    EditorGUILayout.PropertyField( propC, new GUIContent("Propriété C") );
+
+}
+                    </code>
+                </pre>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/tutorial-class-renamed-editor.png" alt="">
+                <br>
+                <span>Comme vous pouvez peut-être le voir, l'Éditeur est indentique à celui par défaut, sauf que nous avons donné un nom aux propriétés.</span>
+                <span>Ici, "Propriété A", "Propriété B" et "Propriété C".</span>
+                <br>
+
+                <span>On peut faire plein de choses avec cette configuration, l'une d'entre elle inclut appeler une Méthode avec un Bouton.</span>
+                <span>Pour ajouter un bouton, écrivez la condition "if ( GUILayout.Button( "Nom du Bouton" ) )" dans "OnInspectorGUI"</span>
+
+                <pre>
+                    <code>
+public override void OnInspectorGUI(){
+
+    EditorGUILayout.PropertyField( propA, new GUIContent("Propriété A") );
+    EditorGUILayout.PropertyField( propB, new GUIContent("Propriété B") );
+    EditorGUILayout.PropertyField( propC, new GUIContent("Propriété C") );
+
+    if ( GUILayout.Button( "Nom du Bouton" ) ) {
+        // Code à exécuter lorsque le bouton est cliqué
+        ((TutorialClass)target).DoSomeStuff();
+    }
+
+}
+
+                    </code>
+                </pre>
+                
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/tutorial-class-button-editor.png" alt="">
+                <br>
+                <span>Lorsqu'on appuie sur ce bouton, la méthode "DoSomeStuff" de l'objet est appelée.</span>
+                <br>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/method-debug.png" alt="">
+                <br>
+                <br>
+                <span>On peut aussi organiser nos propriétés de façon un peu plus intéréssantes:</span>
+
+                <pre>
+                    <code>
+public override void OnInspectorGUI(){
+
+    EditorGUILayout.PropertyField( propA, new GUIContent("Propriété A") );
+
+    using ( new GUILayout.HorizontalScope( ) ) {
+        EditorGUILayout.PropertyField( propB, new GUIContent("Propriété B") );
+        EditorGUILayout.PropertyField( propC, new GUIContent("Propriété C") );
+    }
+
+    if ( GUILayout.Button( "Nom du Bouton" ) ) {
+        // Code à exécuter lorsque le bouton est cliqué
+        ((TutorialClass)target).DoSomeStuff();
+    }
+
+}
+                    </code>
+                </pre>
+                <img class="blog-image" src="assets/images/blog/unity-tool-dev/tutorial-class-rearranged-editor.png" alt="">
+                <br>
+                <br>
+                <span>Nous avons arrangé Propriété A et Propriété B de façon horizontale.</span>
+                <span>On peut aussi arranger des propriétés de façon verticale avec GUILayout.VerticalScope( ).</span>
+
+                <br>
+                <br>
+                <span>Ce système d'Inspecteur customisé est très large et permet de faire à peu près tous ce que l'on peut vouloir.</span>
+                <span>Il y a beaucoup trop de choses dont je n'ai pas le temps de parler.</span>
+                <span>La documentation Unity est remplie d'information à ce sujet, n'hésitez pas à y jeter un coup d'oeil!</span>
+
+                <br>
+                <br>
+                <br>
+                <span>Voici le script fini:</span>
+                <pre>
+                    <code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+
+[CanEditMultipleObjects]
+[CustomEditor(typeof(TutorialClass))]
+public class TutorialClassEditor : UnityEditor.Editor {
+
+    private SerializedObject so;
+    private SerializedProperty propA;
+    private SerializedProperty propB;
+    private SerializedProperty propC;
+    
+                        
+    private void OnEnable(){
+
+        so = serializedObject;
+        propA = so.FindProperty( "a" );
+        propB = so.FindProperty( "b" );
+        propC = so.FindProperty( "c" );
+        
+    }
+
+    private void OnDisable(){
+
+    }
+    
+    public override void OnInspectorGUI(){
+
+        EditorGUILayout.PropertyField( propB, new GUIContent("Propriété B") );
+
+        using ( new GUILayout.HorizontalScope( ) ) {
+            EditorGUILayout.PropertyField( propA, new GUIContent("Propriété A") );
+            EditorGUILayout.PropertyField( propC, new GUIContent("Propriété C") );
+        }
+
+        if ( GUILayout.Button( "Nom du Bouton" ) ) {
+            // Code à exécuter lorsque le bouton est cliqué
+            ((TutorialClass)target).DoSomeStuff();
+        }
+
+    }
+
+    public void OnSceneGUI(){
+
+    }
+}
+                    </code>
+                </pre>
+                <br>
+                <br>
+                <span>Merci d'avoir lu ce tutoriel!</span>
+
+            </div>
+        </div>
+    </body>
+</html>
