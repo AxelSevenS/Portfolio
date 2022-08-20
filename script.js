@@ -3,20 +3,26 @@ let darkModeToggle;
 
 document.addEventListener("DOMContentLoaded", function(e) 
     {
-        html = document.querySelector('html');
-        darkModeToggle = document.querySelector('#dark-mode-toggle');
 
-        darkModeToggle.addEventListener('click', toggleDarkMode);
-        
-        const darkMode = localStorage.getItem("darkMode");
-        if (darkMode == "true") {
-            setToDarkMode();
-        } else {
-            setToLightMode();
-        }
+        updateDarkMode();
 
     }
 )
+
+const updateDarkMode = () => {
+    html = document.querySelector('html');
+
+    darkModeToggle = html.querySelector('#dark-mode-toggle');
+
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+    const darkMode = localStorage.getItem("darkMode");
+    if (darkMode == "true") {
+        setToDarkMode();
+    } else {
+        setToLightMode();
+    }
+}
+
 
 const toggleDarkMode = () => {
     html.classList.toggle('dark-mode');
