@@ -147,32 +147,24 @@ pre {
 		@extend .primary;
 	}
 
+	& .hoverable {
+		@extend .tertiary-bg;
+	}
+
 	&:hover {
 		@extend .primary-bg;
-		@extend .text;
 
 		& * {
 			@extend .text;
 		}
-	}
-}
 
-.hoverable-deep {
-	transition: all .3s linear;
-	border-radius: 5px;
-	@extend .tertiary-bg;
-	@extend .primary;
+		& .hoverable {
+			@extend .primary;
 
-	& * {
-		@extend .primary;
-	}
-
-	&:hover {
-		@extend .primary-bg;
-		@extend .text;
-
-		& * {
-			@extend .text;
+			&:hover {
+				@extend .secondary-bg;
+				@extend .text;
+			}
 		}
 	}
 }
@@ -214,7 +206,7 @@ pre {
 
 
 .tools {
-	font-family: 'Times New Roman', Times, serif;
+	// font-family: 'Times New Roman', Times, serif;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
