@@ -1,7 +1,7 @@
 let html;
 let darkModeToggle;
 
-document.addEventListener("DOMContentLoaded", function(e) 
+document.addEventListener("DOMContentLoaded", function(e)
     {
 
         updateDarkMode();
@@ -16,7 +16,7 @@ const updateDarkMode = () => {
 
     darkModeToggle.addEventListener('click', toggleDarkMode);
     const darkMode = localStorage.getItem("darkMode");
-    if (darkMode == "true") {
+    if (darkMode === "on" || darkMode === null) {
         setToDarkMode();
     } else {
         setToLightMode();
@@ -32,11 +32,11 @@ const toggleDarkMode = () => {
 const setToLightMode = () => {
     html.classList.remove('dark-mode');
     darkModeToggle.classList = 'fa fa-toggle-off';
-    localStorage.setItem("darkMode", "false");
+    localStorage.setItem("darkMode", "off");
 }
 
 const setToDarkMode = () => {
     html.classList.add('dark-mode');
     darkModeToggle.classList = 'fa fa-toggle-on';
-    localStorage.setItem("darkMode", "true");
+    localStorage.setItem("darkMode", "on");
 }

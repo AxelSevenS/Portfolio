@@ -140,10 +140,9 @@ pre {
 .hoverable {
 	transition: all .3s linear;
 	border-radius: 5px;
-	@extend .secondary-bg;
-	@extend .primary;
 
-	& * {
+	@extend .secondary-bg;
+	&, & * {
 		@extend .primary;
 	}
 
@@ -151,11 +150,12 @@ pre {
 		@extend .tertiary-bg;
 	}
 
+
 	&:hover {
 		@extend .primary-bg;
 
-		& * {
-			@extend .text;
+		&, & * {
+			@extend .secondary;
 		}
 
 		& .hoverable {
@@ -176,17 +176,13 @@ pre {
 	padding: 10px;
 
 	@extend .primary-bg;
-	@extend .text;
-
-	& * {
+	&, & * {
 		@extend .text;
 	}
 
 	&:hover {
 		@extend .secondary-bg;
-		@extend .primary;
-
-		& * {
+		&, & * {
 			@extend .primary;
 		}
 	}
